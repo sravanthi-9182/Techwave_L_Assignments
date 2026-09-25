@@ -1,0 +1,17 @@
+Scenario 1
+using a Multi-Cluster Warehouse is the solution. sothat multiple users can run reports at the same time without affecting performance.
+
+Scenario 2
+Time Travel feature uaed to restore the sales table to the state before the data was accidentally deleted.
+
+Scenario 3
+Secure Data Sharing helpds to share the sales summary data directly with partner companies without copying the data.
+
+Scenario 4
+create a Zero-Copy Clone of the production database so the development team gets a copy without using an extra 10 TB of storage. only when the changes made in the copied data then storage is consumed
+
+Scenario 5
+To reduce costs,
+Enable Auto Suspend and Auto Resume.
+Use Resource Monitors to track credit usage and we can send alerts or suspend warehouse when the limits are reached
+Choose the appropriate warehouse size based on workload.
