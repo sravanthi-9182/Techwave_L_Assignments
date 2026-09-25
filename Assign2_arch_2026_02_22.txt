@@ -1,0 +1,98 @@
+SNOWFLAKE - RBAC HOMEWORK QUESTIONS 
+
+MCQ’s 
+
+Q1: Which system role should be used to create databases, schemas, and warehouses? 
+C) SYSADMIN 
+
+
+Q2: In Snowflake RBAC, what does 'GRANT ROLE R1 TO ROLE R2' mean? 
+B) R2 inherits all privileges of R1 
+
+
+Q3: A user queries a table and gets 'Access Denied.' Which of these is NOT a likely cause? 
+C) Virtual Warehouse too small for the query 
+
+
+Q4: What is the recommended authentication method for service accounts and ETL pipelines? 
+C) Key-Pair (RSA) Authentication 
+
+
+Q5: How does Dynamic Data Masking differ from creating separate masked tables/views? 
+C) DDM applies dynamically at query time from ONE table — no data duplication 
+
+
+Q6: Which privilege is required at BOTH database and schema level before a user can access any table? 
+C) USAGE 
+
+
+Q7: What is the purpose of FUTURE GRANTS in Snowflake? 
+B) Auto-apply privileges to objects created in the future in a schema 
+
+
+Q8: A Network Policy is applied at BOTH account level AND user level. Which takes precedence? 
+B) User-level policy overrides account-level for that user 
+
+
+Q9: ACCOUNTADMIN should be used for which of the following tasks? 
+C) Setting account-level parameters and managing billing 
+
+
+Q10: Which Snowflake table in the ACCOUNT_USAGE schema tracks all SQL queries executed? 
+B) QUERY_HISTORY 
+
+
+Q11: What happens when a role is granted to another role in Snowflake? 
+C) The grantee role inherits all privileges of the granted role 
+
+
+Q12: Which feature controls WHICH ROWS a user can see in a query result based on their role? 
+C) Row Access Policy 
+
+
+Q13: Which ACCOUNT_USAGE view should you query to find users who have never logged in? 
+C) USERS 
+
+
+Q14: What is the minimum requirement to connect a BI tool like Tableau to Snowflake securely? 
+B) A user with SELECT on tables + USAGE on warehouse + OAuth or key-pair auth 
+ 
+
+Q15: Why must every custom role be granted to SYSADMIN? 
+B) So SYSADMIN can manage (DROP, ALTER, TRANSFER) objects owned by custom roles 
+
+
+ 
+Scenario 1: The Access Denied Mystery
+
+Sarah has SELECT access on the table, but she is missing USAGE access on the database or schema. To fix this, grant USAGE on SALES_DB and REPORTING schema along with the table permissions.
+
+Scenario 2: The Service Account Breach
+
+Giving SYSADMIN to a service account provides excessive privileges and violates the principle of least privilege. The fix is to create a dedicated custom role with only the permissions required for ETL activities and assign that role to the service account.
+
+Scenario 3: The New Table Problem
+
+The analytics team likely received permissions only on existing tables(old tables). The new table does not automatically inherit those grants. To fix this, use FUTURE GRANTS so new tables automatically receive the required permissions.
+
+Scenario 4: Compliance Audit Requirement
+
+use QUERY_HISTORY, LOGIN_HISTORY, and access history views to identify:
+
+Users who accessed the PATIENTS table
+Their IP addresses
+Roles used
+Activity within the last 30 days
+
+This information can be collected for the compliance audit report.
+
+Scenario 5: The Contractor Dilemma
+
+
+Create a separate role for Accenture users.
+Grant only the required access to SALES_DB.REPORTING.
+Apply a Network Policy allowing only 172.31.0.0/16.
+Enable SSO/MFA and restrict access to approved corporate devices.
+Remove access after 3 months.
+
+This ensures secure and controlled access while following company policy.
